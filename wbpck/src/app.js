@@ -32,7 +32,7 @@ const App = () => {
             <div id="add-button-wrapper">
                 <AddButton
                     id="add-button"
-                    size={40}
+                    size={50}
                     onClick={onClick}
                     disabled={disabled}
                 />

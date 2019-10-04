@@ -30,7 +30,9 @@ pub mod api_v1
     #[derive(Serialize)]
     pub struct RandomArticleResponse
     {
-        link: String
+        title: String,
+        link: String,
+        extract: String,
     }
 
     #[post("/all_categories", format = "json", data = "<data>")]
@@ -61,12 +63,19 @@ pub mod api_v1
         let client = &state.client;
         let rt = &state.runtime;
 
-        let fut = wikicat::conn::api::random_article(client, data.category.clone());
-        let resp = rt.block_on(fut);
-        let link = resp.unwrap();
+        let fut = async {
+            let name = wikicat::conn::api::random_article(client, data.category.clone()).await.unwrap();
+            let resp = wikicat::conn::api::article_details(client, name).await;
+            let details = resp.unwrap().into_body().query.pages.unwrap();
+            details
+        };
+
+        let details = rt.block_on(fut);
 
         let response = RandomArticleResponse {
-            link
+            title: details[0].title.clone(),
+            link: details[0].full_url.clone().unwrap(),
+            extract: details[0].extract.clone().unwrap_or(String::new())
         };
 
         Json(response)

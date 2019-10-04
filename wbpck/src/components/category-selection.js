@@ -13,7 +13,6 @@ const CategorySelection = (props) => {
         })
     }
 
-
     return (
         <div id="category-selection">
             <Async
