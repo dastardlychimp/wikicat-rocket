@@ -8,8 +8,8 @@ edition = "2018"
 
 [dependencies]
 simplelog = "0.7.3"
-tokio = "0.2.0-alpha.4"
-wikicat = { path = "../wikicat" }
+tokio = "=0.2.0-alpha.5"
+wikicat = { git = "https://github.com/dastardlychimp/wikicat" }
 serde_json = "1.0.40"
 serde = "1.0.101"
 

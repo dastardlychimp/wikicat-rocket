@@ -1,5 +1,5 @@
 pub struct AsyncClient
 {
     pub runtime: tokio::runtime::Runtime,
-    pub client: wikicat::conn::AlpnClient,
+    pub client: wikicat::client::AlpnClient,
 }

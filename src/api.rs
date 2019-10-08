@@ -41,7 +41,7 @@ pub mod api_v1
         let client = &state.client;
         let rt = &state.runtime;
 
-        let fut = wikicat::conn::api::all_categories(client, data.prefix.clone());
+        let fut = wikicat::api::all_categories(client, data.prefix.clone());
         let resp = rt.block_on(fut);
         let (_head, body) = resp.unwrap().into_parts();
 
@@ -64,8 +64,8 @@ pub mod api_v1
         let rt = &state.runtime;
 
         let fut = async {
-            let name = wikicat::conn::api::random_article(client, data.category.clone()).await.unwrap();
-            let resp = wikicat::conn::api::article_details(client, name).await;
+            let name = wikicat::api::random_article(client, data.category.clone()).await.unwrap();
+            let resp = wikicat::api::article_details(client, name).await;
             let details = resp.unwrap().into_body().query.pages.unwrap();
             details
         };

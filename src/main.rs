@@ -17,7 +17,7 @@ fn main() {
     init_logging();
     
     let rt = tokio::runtime::Runtime::new().unwrap();
-    let client = wikicat::conn::client::new();
+    let client = wikicat::client::new();
 
     rocket::ignite()
         .mount("/", routes![static_files::index, static_files::main])
